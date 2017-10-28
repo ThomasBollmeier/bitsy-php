@@ -1,0 +1,50 @@
+(* 
+Parsian grammar file for bitsy language
+*)
+
+-- Tokens
+
+symbol EQ '=';
+symbol PLUS '+';
+symbol MINUS '-';
+symbol MULT '*';
+symbol DIV '/';
+symbol MOD '%';
+symbol LPAR '(';
+symbol RPAR ')';
+
+token VAR_NAME /[_A-Za-z]+/;
+token INT /[1-9]\d*/;
+
+-- Rules
+
+@root
+program -> 'BEGIN' block 'END';
+
+block -> if_statement | loop | break | print | read | assignment;
+
+if_statement -> if_keyword expression block ('ELSE' block) 'END';
+
+if_keyword -> 'IFZ' | 'IFP' | 'IFN';
+
+loop -> 'LOOP' block 'END';
+
+break -> 'BREAK';
+
+print -> 'PRINT' expression;
+
+read -> 'READ' VAR_NAME;
+
+assignment -> VAR_NAME EQ expression;
+
+expression -> term (add_op term)*;
+
+add_op -> PLUS | MINUS;
+
+term -> signed_factor (mul_op factor)*;
+
+signed_factor -> add_op? factor;
+
+mul_op -> MULT | DIV | MOD; 
+
+factor -> INT | VAR_NAME | LPAR expression RPAR; 
