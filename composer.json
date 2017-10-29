@@ -1,0 +1,24 @@
+{
+	
+	"name": "tbollmeier/bitsy",
+	"description": "PHP implementation of Bitsy programming language",
+
+	"autoload": {
+        "psr-4": {
+            	"tbollmeier\\bitsy\\": "src/"
+        }
+	},
+	
+	"repositories": [
+		{
+			"type":"vcs",
+			"url":"C:\\Users\\TBoll\\git\\tbollmeier\\parsian"
+		}
+	],
+
+	"require": {
+		"php": "^7.0",
+		"tbollmeier/parsian": "dev-master"
+	}
+	
+}
