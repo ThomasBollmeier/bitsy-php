@@ -1,6 +1,9 @@
 (* 
 Parsian grammar file for bitsy language
+Version: 0.1.0
 *)
+
+comment '{' '}';
 
 -- Tokens
 
@@ -14,37 +17,55 @@ symbol LPAR '(';
 symbol RPAR ')';
 
 token VAR_NAME /[_A-Za-z]+/;
-token INT /[1-9]\d*/;
+token INT /[0-9]+/;
 
 -- Rules
 
 @root
-program -> 'BEGIN' block 'END';
+program -> 'BEGIN' block#block 'END';
 
-block -> if_statement | loop | break | print | read | assignment;
+block -> stmt*;
 
-if_statement -> if_keyword expression block ('ELSE' block) 'END';
+stmt -> if_statement | loop | break | print | read | assignment => child;
 
-if_keyword -> 'IFZ' | 'IFP' | 'IFN';
+if_statement -> if_keyword expression block ('ELSE' alt#block)? 'END';
 
-loop -> 'LOOP' block 'END';
+if_keyword -> 'IFZ' | 'IFP' | 'IFN' => child;
 
-break -> 'BREAK';
+loop -> 'LOOP' block#block 'END';
 
-print -> 'PRINT' expression;
+break -> 'BREAK' => { 
+    :name "break" 
+};
 
-read -> 'READ' VAR_NAME;
+print -> 'PRINT' expr#expression => {
+    :name "print"
+    :children [#expr]
+};
 
-assignment -> VAR_NAME EQ expression;
+read -> 'READ' var#VAR_NAME => {
+    :name "print"
+    :children [#var]
+};
+
+assignment -> lhs#VAR_NAME EQ rhs#expression => {
+    :name "assign"
+    :children [#lhs #rhs]    
+};
 
 expression -> term (add_op term)*;
 
-add_op -> PLUS | MINUS;
+add_op -> PLUS | MINUS => child;
 
 term -> signed_factor (mul_op factor)*;
 
-signed_factor -> add_op? factor;
+signed_factor -> sign#add_op? factor#factor;
 
-mul_op -> MULT | DIV | MOD; 
+mul_op -> MULT | DIV | MOD => child; 
 
-factor -> INT | VAR_NAME | LPAR expression RPAR; 
+factor -> INT | VAR_NAME | group => child;
+
+group -> LPAR expr#expression RPAR => {
+    :name "group"
+    :children [#expr]
+}; 
