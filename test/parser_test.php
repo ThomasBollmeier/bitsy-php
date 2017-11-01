@@ -3,16 +3,16 @@
 require "../vendor/autoload.php";
 
 use tbollmeier\bitsy\Parser;
+use tbollmeier\parsian\input\FileCharInput;
 
 $parser = new Parser();
-$bitsyFile = "data\\if_positivie.bitsy";
+$bitsyFile = "data" . DIRECTORY_SEPARATOR . "division.bitsy";
 
 $ast = $parser->parseFile($bitsyFile);
-
-echo $parser->error();
 
 if ($ast !== false) {
     print $ast->toXml();
 } else {
     print $parser->error();
 }
+

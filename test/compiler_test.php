@@ -6,9 +6,7 @@ use tbollmeier\bitsy\Compiler;
 use tbollmeier\bitsy\StringOut;
 
 $compiler = new Compiler();
-//$bitsyFile = "data\\fibonacci.bitsy";
-//$bitsyFile = "data\\primes.bitsy";
-$bitsyFile = "data\\if_positivie.bitsy";
+$bitsyFile = "data" . DIRECTORY_SEPARATOR . "if_negative.bitsy";
 
 $out = new StringOut();
 $out->open();
