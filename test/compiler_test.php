@@ -8,7 +8,7 @@ use tbollmeier\bitsy\StringOut;
 $compiler = new Compiler();
 //$bitsyFile = "data\\fibonacci.bitsy";
 //$bitsyFile = "data\\primes.bitsy";
-$bitsyFile = "data\\test.bitsy";
+$bitsyFile = "data\\if_positivie.bitsy";
 
 $out = new StringOut();
 $out->open();

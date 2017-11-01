@@ -1,4 +1,6 @@
 BEGIN
     answer = -1 + 87 / 2
-    PRINT answer
+    IFZ answer % 2
+        PRINT answer
+    END
 END

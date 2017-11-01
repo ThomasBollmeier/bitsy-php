@@ -5,7 +5,7 @@ require "../vendor/autoload.php";
 use tbollmeier\bitsy\Parser;
 
 $parser = new Parser();
-$bitsyFile = "data\\fibonacci.bitsy";
+$bitsyFile = "data\\if_positivie.bitsy";
 
 $ast = $parser->parseFile($bitsyFile);
 

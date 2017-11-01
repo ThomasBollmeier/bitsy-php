@@ -8,17 +8,10 @@
             	"tbollmeier\\bitsy\\": "src/"
         }
 	},
-	
-	"repositories": [
-		{
-			"type":"vcs",
-			"url":"C:\\Users\\TBoll\\git\\tbollmeier\\parsian"
-		}
-	],
 
 	"require": {
 		"php": "^7.0",
-		"tbollmeier/parsian": "v1.6.6"
+		"tbollmeier/parsian": "v1.7.0"
 	}
 	
 }
