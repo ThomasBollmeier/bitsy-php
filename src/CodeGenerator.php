@@ -77,7 +77,7 @@ class CodeGenerator
                 $condExprStr .= " === 0";
                 break;
             case "is-negative":
-                $condExprStr .= " > 0";
+                $condExprStr .= " < 0";
                 break;
         }
 
@@ -199,13 +199,14 @@ class CodeGenerator
             return $this->stringTerm($termsAndOps[0]);
         }
 
-        $firstOperand = array_shift($termsAndOps);
-        $op = array_shift($termsAndOps);
-        $secondOperandStr = $this->stringProduct($termsAndOps);
-
-        $ret = $this->stringTerm($firstOperand);
+        $size = count($termsAndOps);
+        $secondOperand = $termsAndOps[$size - 1];
+        $op = $termsAndOps[$size - 2];
+        $firstPart = array_slice($termsAndOps, 0, -2);
+        
+        $ret = $this->stringProduct($firstPart);
         $ret .= " " . $this->stringMulOp($op) . " ";
-        $ret .= $secondOperandStr;
+        $ret .= $this->stringTerm($secondOperand);
 
         if ("div" === $op->getName()) {
             $ret = "intval($ret)"; 
